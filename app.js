@@ -19,7 +19,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// Code Placement is very important for "session" DONT MOVE
 app.use(session({
   secret: "Our little secret.",
   resave: false,
@@ -29,9 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//mongodb://localhost:27017/userDB
-
-mongoose.connect("mongodb+srv:admin:test123@cluster0-pkw4q.mongodb.net/secretsDB", {
+mongoose.connect("mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB", {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -153,7 +150,6 @@ app.post("/submit", function(req, res) {
   const submittedSecret = req.body.secret;
 
   //Once the user is authenticated and their session gets saved, their user details are saved to req.user.
-  // console.log(req.user.id);
 
   User.findById(req.user.id, function(err, foundUser) {
     if (err) {
