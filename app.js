@@ -29,7 +29,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {
+//mongodb://localhost:27017/userDB
+
+mongoose.connect("mongodb+srv:admin:test123@cluster0-pkw4q.mongodb.net/secretsDB", {
   useNewUrlParser: true,
   useCreateIndex: true
 });
