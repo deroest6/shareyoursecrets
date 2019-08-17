@@ -62,12 +62,14 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
-    // callbackURL: "https://localhost:3000/auth/google/secrets"
+    // Deployment URL
+    // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
+    // Local Testing URL
+    callbackURL: "http://localhost:3000/auth/google/secrets"
   },
 
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+    //console.log(profile);
     User.findOrCreate({googleId: profile.id}, function(err, user) {
       return cb(err, user);
     });
@@ -78,11 +80,12 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: "https://shareyoursecrets.herokuapp.com/auth/facebook/secrets"
+    // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/facebook/secrets"
+    callbackURL: "http://localhost:3000/auth/facebook/secrets"
   },
 
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+
     User.findOrCreate({
       facebookId: profile.id
     }, function(err, user) {
@@ -145,8 +148,6 @@ app.get("/submit", function(req, res) {
   }
 });
 
-
-
 app.post("/submit", function(req, res) {
   const submittedSecret = req.body.secret;
 
@@ -204,7 +205,6 @@ app.post("/login", function(req, res) {
   });
 
 });
-
 
 
 
