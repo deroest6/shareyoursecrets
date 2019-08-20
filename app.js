@@ -20,10 +20,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(session({
+app.use(express.session({
   secret: "Our little secret.",
   store: new MongoStore({
-    url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB"
+    url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB",
+    touchAfter: 24 * 3600 // Update only one time in a period of 24 hours
   }),
   resave: false,
   saveUninitialized: false
