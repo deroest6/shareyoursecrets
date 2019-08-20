@@ -20,14 +20,16 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(express.session({
+app.use(session({
   secret: "Our little secret.",
-  store: new MongoStore({
-    url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB",
-    touchAfter: 24 * 3600 // Update only one time in a period of 24 hours
-  }),
+  // store: new MongoStore({
+  //   url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB",
+  //   touchAfter: 24 * 3600 // Update only one time in a period of 24 hours
+  // }),
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { secure: true }
 }));
 
 app.use(passport.initialize());
