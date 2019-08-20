@@ -10,6 +10,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
+const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 
@@ -21,6 +22,9 @@ app.use(bodyParser.urlencoded({
 
 app.use(session({
   secret: "Our little secret.",
+  store: new MongoStore({
+    url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB"
+  }),
   resave: false,
   saveUninitialized: false
 }));
@@ -62,9 +66,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // Deployment URL
     // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
-    // Local Testing URL
     callbackURL: "http://localhost:3000/auth/google/secrets"
   },
 
