@@ -7,10 +7,10 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const MongoStore = require('connect-mongo')(session);
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(session({
-  secret: "Our little secret.",
+  secret: process.env.SECRET,
   // store: new MongoStore({
   //   url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB",
   //   touchAfter: 24 * 3600 // Update only one time in a period of 24 hours
@@ -70,11 +70,11 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
+
     // callbackURL: "http://localhost:3000/auth/google/secrets"
   },
 
   function(accessToken, refreshToken, profile, cb) {
-    //console.log(profile);
     User.findOrCreate({googleId: profile.id}, function(err, user) {
       return cb(err, user);
     });
@@ -91,9 +91,7 @@ passport.use(new FacebookStrategy({
 
   function(accessToken, refreshToken, profile, cb) {
 
-    User.findOrCreate({
-      facebookId: profile.id
-    }, function(err, user) {
+    User.findOrCreate({facebookId: profile.id}, function(err, user) {
       return cb(err, user);
     });
   }

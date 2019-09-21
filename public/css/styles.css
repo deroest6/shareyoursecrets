@@ -1,8 +1,4 @@
 
-body {
-  background-color: #E8ECEF;
-}
-
 .centered {
     padding-top: 200px;
     text-align: center;
@@ -13,4 +9,56 @@ body {
   font-size: 2rem;
   color: #fff;
   background-color: #000;
+}
+
+html, body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.btn-light {
+  background-color: #f8f9fa87;
+  border-color: #6c757d00;
+}
+
+.display-3 {
+  font-size: 3.25rem;
+  margin-bottom: 10%;
+}
+
+.btn-lg {
+  padding: .5rem 3rem;
+}
+
+.jumbotron {
+  background: radial-gradient(
+    circle closest-corner at center 195px,
+    #222,
+    black 80%
+  ) no-repeat;
+  text-align: center;
+  height: 100vh
+}
+
+/* body {
+  background: radial-gradient(
+    circle closest-corner at center 125px,
+    #222,
+    black 80%
+  ) no-repeat;
+  text-align: center;
+} */
+
+h1 {
+  display: inline-block;
+  padding-top: 100px;
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  background: radial-gradient(
+    circle farthest-corner at center center,
+    #ccc,
+    #333
+  ) no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
