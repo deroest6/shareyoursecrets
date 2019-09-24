@@ -4,16 +4,24 @@
     text-align: center;
 }
 
-.secret-text {
+#secrets .secret-text {
   text-align: center;
   font-size: 2rem;
   color: #fff;
   background-color: #000;
+  line-height: 3;
 }
 
 html, body {
   height: 100vh;
   overflow: hidden;
+}
+
+#home .display-3 {
+  font-size: 4rem;
+}
+.lead {
+  color: white;
 }
 
 .btn-light {
@@ -23,7 +31,7 @@ html, body {
 
 .display-3 {
   font-size: 3.25rem;
-  margin-bottom: 10%;
+  margin-bottom: 8%;
 }
 
 .btn-lg {

@@ -26,7 +26,7 @@ app.use(session({
   //   url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB",
   //   touchAfter: 24 * 3600 // Update only one time in a period of 24 hours
   // }),
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  // store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: false,
   cookie: { secure: true }
@@ -69,9 +69,9 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
+    // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
 
-    // callbackURL: "http://localhost:3000/auth/google/secrets"
+    callbackURL: "http://localhost:3000/auth/google/secrets"
   },
 
   function(accessToken, refreshToken, profile, cb) {
@@ -85,8 +85,8 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: "https://shareyoursecrets.herokuapp.com/auth/facebook/secrets"
-    // callbackURL: "http://localhost:3000/auth/facebook/secrets"
+    // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/facebook/secrets"
+    callbackURL: "http://localhost:3000/auth/facebook/secrets"
   },
 
   function(accessToken, refreshToken, profile, cb) {
@@ -135,6 +135,7 @@ app.get("/secrets", function(req, res) {
   User.find({"secret": {$ne: null}}, function(err, foundUsers) {
     if (err) {
       console.log(err);
+      res.render("404");
     } else {
       if (foundUsers) {
         res.render("secrets", {usersWithSecrets: foundUsers});
@@ -159,6 +160,7 @@ app.post("/submit", function(req, res) {
   User.findById(req.user.id, function(err, foundUser) {
     if (err) {
       console.log(err);
+      res.render("404");
     } else {
       if (foundUser) {
         foundUser.secret = submittedSecret;
@@ -200,6 +202,7 @@ app.post("/login", function(req, res) {
   req.login(user, function(err) {
     if (err) {
       console.log(err);
+      res.render("404");
     } else {
       passport.authenticate("local")(req, res, function() {
         res.redirect("/secrets");
