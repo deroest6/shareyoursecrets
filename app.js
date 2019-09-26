@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
@@ -39,6 +40,7 @@ const userSchema = new mongoose.Schema ({
   email: String,
   password: String,
   googleId: String,
+  facebookId: String,
   secret: String
 });
 
@@ -75,6 +77,19 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://www.localhost3000.com/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ facebookId: profile.id}, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+
 app.get("/", function(req, res){
   res.render("home");
 });
@@ -88,7 +103,22 @@ app.get("/auth/google/secrets",
   function(req, res) {
     // Successful authentication, redirect to secrets.
     res.redirect("/secrets");
-  });
+});
+
+// Redirect the user to Facebook for authentication.  When complete,
+// Facebook will redirect the user back to the application at
+//     /auth/facebook/callback
+app.get('/auth/facebook',
+  passport.authenticate('facebook', { scope: 'read_stream' }));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/auth/facebook/secrets',passport.authenticate('facebook',{
+   successRedirect: '/secrets',
+   failureRedirect: '/login'
+ }));
 
 app.get("/login", function(req, res){
   res.render("login");
