@@ -64,7 +64,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/secrets",
+    callbackURL: "https://localhost:3000/auth/google/secrets",
     // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
@@ -80,7 +80,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://www.localhost3000.com/auth/facebook/callback"
+    callbackURL: "https://www.localhost3000.com/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ facebookId: profile.id}, function(err, user) {
@@ -109,7 +109,7 @@ app.get("/auth/google/secrets",
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
 app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: 'read_stream' }));
+  passport.authenticate('facebook'));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
 // authentication process by attempting to obtain an access token.  If
