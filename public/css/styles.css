@@ -44,6 +44,7 @@ html, body {
     #222,
     black 80%
   ) no-repeat;
+  padding-top: 50px;
   text-align: center;
   height: 100vh
 }
