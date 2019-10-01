@@ -33,7 +33,6 @@ mongoose.connect("mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secrets
   useNewUrlParser: true,
   useCreateIndex: true
 });
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
@@ -64,8 +63,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://localhost:3000/auth/google/secrets",
-    // callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets"
+    // callbackURL: "https://localhost:3000/auth/google/secrets",
+    callbackURL: "https://shareyoursecrets.herokuapp.com/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -80,7 +79,8 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "https://www.localhost3000.com/auth/facebook/secrets"
+    // callbackURL: "https://www.localhost3000.com/auth/facebook/secrets",
+    callbackURL: "https://shareyoursecrets.herokuapp.com/auth/facebook/secrets"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ facebookId: profile.id}, function(err, user) {
