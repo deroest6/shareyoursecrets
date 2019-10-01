@@ -29,7 +29,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connect to MongoDB Cluster
-mongoose.connect("mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB", {
+const uri = process.env.URI;
+mongoose.connect("uri", {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -211,8 +212,8 @@ app.post("/login", function(req, res){
 
 
 
+const port = process.env.PORT || 3000;
 
-
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log("Server started on port 3000.");
 });
