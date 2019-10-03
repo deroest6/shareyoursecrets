@@ -116,7 +116,7 @@ app.get('/auth/facebook',
 // authentication process by attempting to obtain an access token.  If
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
-app.get('/auth/facebook/secrets',passport.authenticate('facebook',{
+app.get('/auth/facebook/secrets', passport.authenticate('facebook', {
    successRedirect: '/secrets',
    failureRedirect: '/login'
  }));
