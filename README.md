@@ -7,4 +7,4 @@ HTML, CSS, Bootstrap, Javascript, Node.js, MongoDB
 
 ### Share your own secret:
 
- [shareyoursecrets](https://www.shareyoursecrets.herokuapp.com) - Home Page
+(https://www.shareyoursecrets.herokuapp.com) - ShareYourSecrets App
