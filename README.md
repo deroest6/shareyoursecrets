@@ -6,4 +6,5 @@ My own take of the original Whisper app. A simpler version , but check it out! A
 HTML, CSS, Bootstrap, Javascript, Node.js, MongoDB
 
 ### Share your own secret:
-shareyoursecrets.herokuapp.com
+
+* [shareyoursecrets](https://www.shareyoursecrets.herokuapp.com)
