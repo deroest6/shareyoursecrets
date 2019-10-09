@@ -1,4 +1,4 @@
-# shareyoursecrets
+# ShareYourSecrets
 
 My own take of the original Whisper app. A simpler version , but check it out! And dont forget to share your own secrets :) 
 
