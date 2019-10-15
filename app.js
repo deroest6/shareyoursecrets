@@ -28,13 +28,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Connect to MongoDB Cluster
 const uri = process.env.URI;
+console.log(uri);
+
 mongoose.connect("uri", {
   useNewUrlParser: true,
   useCreateIndex: true
 });
-mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
   email: String,
