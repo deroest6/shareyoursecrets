@@ -46,17 +46,17 @@ html, body {
   ) no-repeat;
   padding-top: 50px;
   text-align: center;
-  height: 100vh
+  height: 100vh;
 }
 
-/* body {
+body {
   background: radial-gradient(
     circle closest-corner at center 125px,
     #222,
     black 80%
   ) no-repeat;
   text-align: center;
-} */
+}
 
 h1 {
   display: inline-block;

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(session({
   secret: process.env.SECRET,
+  store: new MongoStore({ url: "mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsSessions" }),
   resave: false,
   saveUninitialized: false
 }));
@@ -30,10 +32,7 @@ app.use(passport.session());
 
 
 // Connect to MongoDB Cluster
-const uri = process.env.URI;
-console.log(uri);
-
-mongoose.connect("uri", {
+mongoose.connect("mongodb+srv://admin:test123@cluster0-pkw4q.mongodb.net/secretsDB", {
   useNewUrlParser: true,
   useCreateIndex: true
 });
