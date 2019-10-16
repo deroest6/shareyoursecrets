@@ -29,9 +29,18 @@ h1 {
   width: 15%;
 }
 
+.btn {
+  font-family: 'Barlow Condensed', sans-serif;
+
+}
+
+.btn-dark {
+  color: #e6e6e6;
+}
+
 .display-3 {
   font-size: 3.25rem;
-  margin-bottom: 8%;
+  margin-bottom: 6.5%;
   display: inline-block;
   padding-top: 100px;
 }
@@ -49,6 +58,7 @@ h1 {
 
 label {
   color: rgba(260,260,260,.8);
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .card {
